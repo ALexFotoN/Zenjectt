@@ -1,0 +1,23 @@
+using UnityEngine;
+using System.Collections.Generic;
+
+public class ProjectilePool : MonoBehaviour
+{
+    public GameObject projectilePrefab;
+    private Queue<GameObject> _pool = new Queue<GameObject>();
+
+    public GameObject GetProjectile()
+    {
+        if (_pool.Count > 0)
+        {
+            return _pool.Dequeue();
+        }
+        return Instantiate(projectilePrefab);
+    }
+
+    public void ReturnProjectile(GameObject projectile)
+    {
+        projectile.SetActive(false);
+        _pool.Enqueue(projectile);
+    }
+}
