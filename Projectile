@@ -1,0 +1,30 @@
+using UnityEngine;
+
+public class Projectile : MonoBehaviour
+{
+    public float lifetime = 2f;  // Устанавливается в инспекторе
+    public AudioClip shotSound;
+    public AudioClip destroySound;
+    
+    private float _timer;
+
+    void Update()
+    {
+        _timer += Time.deltaTime;
+        if (_timer >= lifetime)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Destructible"))
+        {
+            AudioSource.PlayClipAtPoint(destroySound, transform.position);
+            collision.gameObject.GetComponent<Destructible>().Destroy();
+        }
+        
+        Destroy(gameObject);
+    }
+}
