@@ -1,0 +1,10 @@
+using Zenject;
+
+public class GameInstaller : MonoInstaller
+{
+    public override void InstallBindings()
+    {
+        Container.Bind<IProjectileService>().To<ProjectileService>().AsSingle();
+        Container.Bind<IAudioService>().To<AudioService>().AsSingle();
+    }
+}
